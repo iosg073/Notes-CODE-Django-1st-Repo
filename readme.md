@@ -58,7 +58,7 @@ Create a database:
 $ psql
 > CREATE DATABASE tunr;
 > CREATE USER tunruser WITH PASSWORD 'tunr';
-GRANT ALL PRIVILEGES ON DATABASE tunr TO tunruser;
+> GRANT ALL PRIVILEGES ON DATABASE tunr TO tunruser;
 > \q
 ```
 
@@ -184,7 +184,7 @@ Repeat the admin process for `songs`. Create three songs through this dashboard.
 
 ### Django's ORM
 
-Django has an ORM, similar to Active Record in Rails and Mongoose in Express. Let's look at a few queries.
+Django has an ORM, similar to Mongoose in Express. Let's look at a few queries.
 
 ```python
 # Select all of the artist objects in the database
@@ -232,17 +232,9 @@ If you want to access a REPL, run `$ python manage.py shell`. If you end up buil
 
 ## Homework
 
-Complete the Models + Migrations portion of [Scribble](https://github.com/ga-wdi-exercises/scribble).
+Complete the Models + Migrations portion of [Scribble](https://github.com/dc-wdi-python-django/scribble).
 
 ## Resources
 
-* [List of Rails Commands](https://gist.github.com/jshawl/ce1de309ef993ec808d9)
-* [ActiveRecord Validation Helpers](http://edgeguides.rubyonrails.org/active_record_validations.html#validation-helpers)
 
 ## Sample Quiz Questions
-
-* What are some common `rails` commons you will be using when developing a Rails application?
-* How do we indicate a one-to-many relationship in a migration file?
-* Why would we use a seed file to populate our database?
-* What is the proper way of modifying the effects of an existing migration?
-* What does `rails db:rollback` do?
