@@ -62,7 +62,7 @@ GRANT ALL PRIVILEGES ON DATABASE tunr TO tunruser;
 > \q
 ```
 
-Then, in `tunr_app/settings.py` find the `DATABASE` constant dictionary. Let's edit it to look like this:
+Then, in `tunr_django/settings.py` find the `DATABASE` constant dictionary. Let's edit it to look like this:
 
 ```python
 DATABASES = {
