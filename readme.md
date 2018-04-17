@@ -32,7 +32,7 @@ $ source .env/bin/activate
 
 Let's also install some dependencies and save them. Django doesn't utilize a
 `Gemfile` or a `package.json`. Instead, we just use a text file that lists all
-of our dependencies. Pip freeze saves the dependencies in our `virtualen`v to
+of our dependencies. The `pip freeze` command saves the dependencies in our `virtualenv` to
 that file.
 
 ```bash
@@ -41,13 +41,13 @@ $ pip install psycopg2
 $ pip freeze > requirements.txt
 ```
 
-Django is, of course, the framework we are using. Psycopg2 allows us to use
+Django is, of course, the framework we are using. `psycopg2` allows us to use
 PostgreSQL within Django.
 
-If you are downloading and running a Python project, you can usually install its
-dependencies with `pip install -r requirements.txt`.
+If you are downloading and running a Python project, you can usually install 
+its dependencies with `pip install -r requirements.txt`.
 
-Let's go ahead and create our project. Similar to Rails, we can run commands to
+Let's go ahead and create our project. `django-admin` gives us commands to
 generate some of our project for us.
 
 ```bash
@@ -109,7 +109,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Now, in the terminal run `$ python manage.py runserver` and then navigate to
+Now, in the terminal run `python manage.py runserver` and then navigate to
 `localhost:8000`. You should see a page welcoming you to Django!
 
 `manage.py` contains a lot of management commands for Django. We'll see more
@@ -119,8 +119,9 @@ scenes.
 
 ## Models
 
-Let's start working with some data. In Django, we will write out models. Models
-represent the data layer of our application. We store that data in our database:
+Let's start working with some data. In Django, we will write out models. 
+Models represent the data layer of our application. We store that data in our
+database:
 
 [rMVC Diagram](http://i.stack.imgur.com/Sf2OQ.png)
 
@@ -165,7 +166,7 @@ $ python manage.py makemigrations
 ```
 
 This will generate a migration file that gets all of its data from the code in
-the `models.py` file. You normally don't edit these files manually in Django. 
+the `models.py` file. You normally don't edit these files manually in Django.
 
 Let's also run:
 
