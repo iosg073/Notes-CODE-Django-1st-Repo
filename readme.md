@@ -120,7 +120,7 @@ scenes.
 ## Models
 
 Let's start working with some data. In Django, we will write out models. Models
-represent the data layer of our application. We store that data in our database 
+represent the data layer of our application. We store that data in our database:
 
 [rMVC Diagram](http://i.stack.imgur.com/Sf2OQ.png)
 
@@ -190,11 +190,10 @@ its parent -- you will see this in use later on. `on_delete` specifies how we
 want the models to act when their parent is deleted. By using cascade, related
 children will be deleted.
 
-### You Do (5 minutes)
+### You Do: Add the rest of the Song model (5 minutes)
 
-Add the rest of the Song model. Add `title`, `album` and `preview_url` fields,
-then create and run the migrations. Finally create three songs using the admin
-site.
+Add `title`, `album` and `preview_url` fields, then create and run the
+migrations. Finally create three songs using the admin site.
 
 ### Admin Console
 
@@ -210,7 +209,7 @@ $ python manage.py createsuperuser
 
 Then fill in the information in the boxes that pop up!
 
-So far in this class,  we have used seed files to add initial data to our
+So far in this class, we have used seed files to add initial data to our
 databases. We can also do that in Django ([see this
 article](https://docs.djangoproject.com/en/1.11/howto/initial-data/)), but let's
 try something a little bit different instead.
@@ -290,6 +289,14 @@ you can use IPython notebooks within Django to debug!
 Complete the Models + Migrations portion of
 [Scribble](https://github.com/dc-wdi-python-django/scribble).
 
-## Resources
+## Additional Resources
+
+* [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
+* [Django Docs: Models & Databases](https://docs.djangoproject.com/en/2.0/topics/db/)
+* [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
+* [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
+* [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
+* [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
+* [Django Extensions](https://github.com/django-extensions/django-extensions)
 
 ## Sample Quiz Questions
