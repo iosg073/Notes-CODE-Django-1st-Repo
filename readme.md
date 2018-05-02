@@ -281,17 +281,19 @@ Artist.objects.filter(name__startswith="A")
 Song.objects.exclude(artist_id__gte=3)
 ```
 
-If you want to access a REPL, run `$ python manage.py shell`. If you end up
-building your own Django application I would **highly** recommend using
-[django-extensions](https://github.com/django-extensions/django-extensions) so
-you can use IPython notebooks within Django to debug!
+If you want to access a REPL, run `$ python manage.py shell`. 
+
+## Django Extensions
+
+Django Extensions adds additional debugging functionality to Django. We would **highly** recommend using it to make coding easier! [Link](https://github.com/django-extensions/django-extensions).
+
 
 ## Closing/Questions (10 minutes / 2:30)
 
 ## Homework
 
 Complete the Models + Migrations portion of
-[Scribble](https://github.com/dc-wdi-python-django/scribble).
+[Scribble](https://git.generalassemb.ly/dc-wdi-python-django/scribble).
 
 ## Additional Resources
 
