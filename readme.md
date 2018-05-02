@@ -40,6 +40,7 @@ $ pip install django
 $ pip install psycopg2
 $ pip freeze > requirements.txt
 ```
+> You may need to also install `pip install psycopg2-binary`
 
 Django is, of course, the framework we are using. `psycopg2` allows us to use
 PostgreSQL within Django.
