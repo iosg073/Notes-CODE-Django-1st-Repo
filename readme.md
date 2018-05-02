@@ -158,8 +158,11 @@ class Artist(models.Model):
         return self.name
 ```
 
-In order to migrate this model to the database, we will run two commands. The
-first is:
+## Migrations
+
+In the SQL class, we talked about how schema is enforced on the database side when we use SQL databases. But here we are writing our schema on the Python side! We have to translate that code into the schema for our database. We will do so using migrations. In some frameworks, you have to write your migrations yourself, but in Django the framework writes them for us! 
+
+In order to migrate this model to the database, we will run two commands. The first is:
 
 ```bash
 $ python manage.py makemigrations
