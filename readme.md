@@ -195,11 +195,6 @@ its parent -- you will see this in use later on. `on_delete` specifies how we
 want the models to act when their parent is deleted. By using cascade, related
 children will be deleted.
 
-### You Do: Add the rest of the Song model (5 minutes)
-
-Add `title`, `album` and `preview_url` fields, then create and run the
-migrations. Finally create three songs using the admin site.
-
 ### Admin Console
 
 Before we get too far, let's also create a superuser for our app. Django has
@@ -234,9 +229,11 @@ admin.site.register(Artist)
 If you now navigate to `localhost:8000/admin`, you get a full admin view where
 you have full CRUD functionality for your model! Create two Artists here.
 
-### You Do: Songs Admin
+### You Do: Add the rest of the Song model (5 minutes)
 
-Repeat the admin process for `songs`. Create three songs through this dashboard.
+Add `title`, `album` and `preview_url` fields, then create and run the
+migrations. Finally create three songs using the admin site.
+
 
 ## Django's ORM
 
