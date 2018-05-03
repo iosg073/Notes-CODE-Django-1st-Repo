@@ -36,7 +36,7 @@ of our dependencies. The `pip freeze` command saves the dependencies in our `vir
 that file.
 
 ```bash
-$ pip install django
+$ pip install Django==2.0.5
 $ pip install psycopg2
 $ pip freeze > requirements.txt
 ```
