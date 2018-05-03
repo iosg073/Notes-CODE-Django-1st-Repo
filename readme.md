@@ -63,7 +63,6 @@ Let's go ahead and also create our app.
 ```bash
 $ django-admin startapp tunr
 ```
-
 Again, take a minute to look at the newly generated files.
 
 By default, Django uses MySQL for its database.  Let's use PostgreSQL instead
