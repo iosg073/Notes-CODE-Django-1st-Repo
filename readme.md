@@ -284,6 +284,29 @@ If you want to access a REPL, run `$ python manage.py shell`.
 
 Django Extensions adds additional debugging functionality to Django. We would **highly** recommend using it to make coding easier! [Link](https://github.com/django-extensions/django-extensions).
 
+To set it up:
+
+```
+$ pip install django-extensions
+```
+
+Add `django_extensions` to your `INSTALLED_APPS` list:
+
+```py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tunr',
+    'django_extensions'
+]
+```
+
+You can now run `python manage.py shell_plus --ipython` to get to an IPython shell.
+
 ## Closing/Questions (10 minutes / 2:30)
 
 ## Homework
