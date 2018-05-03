@@ -25,7 +25,7 @@ multiple versions of Python on the same system so we can have different versions
 of both Python and the packages we are using on our computers.
 
 ```bash
-$ pip install virtualenv
+$ pip3 install virtualenv
 $ virtualenv .env -p python3
 $ source .env/bin/activate
 ```
@@ -280,7 +280,7 @@ Song.objects.exclude(artist_id__gte=3)
 
 If you want to access a REPL, run `$ python manage.py shell`. 
 
-## Django Extensions
+## Bonus: Django Extensions
 
 Django Extensions adds additional debugging functionality to Django. We would **highly** recommend using it to make coding easier! [Link](https://github.com/django-extensions/django-extensions).
 
