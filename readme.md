@@ -1,6 +1,6 @@
 # Django Models and Migrations
 
-## Learning Objectives - James
+## Learning Objectives
 
 * Create a new Django application with Postgres as the default database
 * Use `manage.py` commands to create, edit, update and seed a database
@@ -12,7 +12,7 @@
 In this lesson, we will be focusing on the many features that Django provide us
 to set up and maintain our database and models.
 
-## We Do: Set Up a Django Application (10 minutes / 0:10) - Ali
+## We Do: Set Up a Django Application (10 minutes / 0:10)
 
 Let's start by making a directory for our project:
 
@@ -117,7 +117,7 @@ later, but [here](https://docs.djangoproject.com/en/1.11/ref/django-admin/) is
 the full documentation if you are interested in what's going on behind the
 scenes.
 
-## Models - James
+## Models
 
 Let's start working with some data. In Django, we will write out models. 
 Models represent the data layer of our application. We store that data in our
@@ -158,7 +158,7 @@ class Artist(models.Model):
         return self.name
 ```
 
-## Migrations - Ali
+## Migrations
 
 In the SQL class, we talked about how schema is enforced on the database side when we use SQL databases. But here we are writing our schema on the Python side! We have to translate that code into the schema for our database. We will do so using migrations. In some frameworks, you have to write your migrations yourself, but in Django the framework writes them for us! 
 
@@ -179,7 +179,7 @@ $ python manage.py migrate
 
 This will commit the migration to the database.
 
-### Foreign Keys - James
+### Foreign Keys
 
 Let's also start filling out the Song model. We will define the class and then
 add a foreign key. We do so like this:
@@ -194,7 +194,7 @@ its parent -- you will see this in use later on. `on_delete` specifies how we
 want the models to act when their parent is deleted. By using cascade, related
 children will be deleted.
 
-### Admin Console - Ali
+### Admin Console
 
 Before we get too far, let's also create a superuser for our app. Django has
 authentication (and authorization) right out of the box, so you don't have to
@@ -228,13 +228,13 @@ admin.site.register(Artist)
 If you now navigate to `localhost:8000/admin`, you get a full admin view where
 you have full CRUD functionality for your model! Create two Artists here.
 
-### You Do: Add the Song model (5 minutes) - James
+### You Do: Add the Song model (5 minutes)
 
 Add `title`, `album` and `preview_url` fields, then create and run the
 migrations. Finally create three songs using the admin site.
 
 
-## Django's ORM - Ali
+## Django's ORM
 
 Django has an ORM, similar to Mongoose in Express. Let's look at a few queries.
 
