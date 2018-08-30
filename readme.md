@@ -12,6 +12,8 @@
 In this lesson, we will be focusing on the many features that Django provide us
 to set up and maintain our database and models.
 
+You should be well aqcuianted on what models do, they will work in a similar way to how they did in a MERN stack application. 
+
 ## We Do: Set Up a Django Application (10 minutes / 0:10)
 
 Let's start by making a directory for our project:
