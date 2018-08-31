@@ -378,10 +378,10 @@ kanye.save()
 
 # Oops, we misspelled Kanye's name! Let's change it and then commit to the DB
 kanye.name = "Kanye West"
-a.save()
+kanye.save()
 
 # Let's add a song to the artist
-song = Song(title="Ultralight Beam", album="The Life of Pablo", preview_url="test.com", artist=a)
+song = Song(title="Ultralight Beam", album="The Life of Pablo", preview_url="test.com", artist=kanye)
 song.save()
 
 # Delete the song
