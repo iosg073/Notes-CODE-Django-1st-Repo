@@ -402,6 +402,9 @@ If you want to access a REPL, run `$ python manage.py shell`.
 
 ## Closing/Questions (10 minutes / 2:30)
 
+# Solution For Tunr:
+https://git.generalassemb.ly/dc-wdi-python-django/tunr/tree/models-solution
+
 ## Homework
 
 Complete the Models + Migrations portion of
