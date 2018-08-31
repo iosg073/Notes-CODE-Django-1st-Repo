@@ -406,6 +406,7 @@ If you want to access a REPL, run `$ python manage.py shell`.
 
 Complete the Models + Migrations portion of
 [Scribble](https://git.generalassemb.ly/dc-wdi-python-django/scribble).
+## DUE MONDAY!
 
 ## Additional Resources
 
