@@ -300,6 +300,7 @@ from .models import Artist, Song
 
 
 admin.site.register(Artist, Song)
+admin.site.register(Song)
 </details>
 
 <details>
