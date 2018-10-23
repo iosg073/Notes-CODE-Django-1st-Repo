@@ -410,7 +410,6 @@ https://git.generalassemb.ly/dc-wdi-python-django/tunr/tree/models-solution
 
 Complete the Models + Migrations portion of
 [Scribble](https://git.generalassemb.ly/dc-wdi-python-django/scribble).
-## DUE MONDAY!
 
 ## Additional Resources
 
