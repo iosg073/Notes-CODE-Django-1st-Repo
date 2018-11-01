@@ -93,10 +93,8 @@ pytz==2018.7
 Django is, of course, the framework we are using. `psycopg2-binary` allows us to
 use PostgreSQL within Django.
 
-If you are downloading and running a Python project, you can usually install its
-dependencies with `pip install -r requirements.txt`.
-
-> This is equivalent to `npm install` in node projects.
+If you are downloading and running a Python project, you can usually install 
+its dependencies with `pip install -r requirements.txt`. This is essentially `npm install`, pip is our python package manager. Requirements.txt is our new package.json.
 
 Let's go ahead and create our project. `django-admin` gives us commands to
 generate some of our project for us.
@@ -144,6 +142,17 @@ $ psql -d postgres
 > \q
 ```
 
+OR
+
+Create a database via file:
+```settings.sql
+CREATE DATABASE tunr;
+CREATE USER tunruser WITH PASSWORD 'tunr';
+GRANT ALL PRIVILEGES ON DATABASE tunr TO tunruser;
+```
+
+psql -U postgres -f settings.sql
+
 Then, in `tunr_django/settings.py` find the `DATABASE` constant dictionary.
 Let's edit it to look like this:
 
@@ -158,6 +167,12 @@ DATABASES = {
     }
 }
 ```
+
+
+<details>
+<summary>What data types is DATABASES?</summary>
+DICTIONARY!!!!!!
+</details>
 
 We must also include the app we generated. On the bottom line of the
 `INSTALLED_APPS` list, add `tunr`. Whenever you create a new app, you have to
@@ -175,6 +190,11 @@ INSTALLED_APPS = [
 ]
 ```
 
+<details>
+<summary>What data types is INSTALLED_APPS?</summary>
+DICTIONARY!!!!!!
+</details>
+
 Now, in the terminal run `python manage.py runserver` and then navigate to
 `localhost:8000`. You should see a page welcoming you to Django!
 
@@ -184,6 +204,14 @@ Now, in the terminal run `python manage.py runserver` and then navigate to
 later, but [here](https://docs.djangoproject.com/en/1.11/ref/django-admin/) is
 the full documentation if you are interested in what's going on behind the
 scenes.
+
+### Check Out manage.py!
+
+You can see a list of commands that `manage.py` offers by typing:
+
+```
+python3 manage.py
+```
 
 ## Models (10 min / 0:40)
 
@@ -255,10 +283,14 @@ $ python3 manage.py migrate
 
 This will commit the migration to the database.
 
+<details>
+<summary>What is a migration?</summary>
+The process of taking a set of changes/modifications intended for a database and applying those changes
+</details>
 
 ## Break (10 min / 1:00)
 
-### Foreign Keys
+### Foreign Keys (10 min / 1:10)
 
 Let's also start filling out the Song model. We will define the class and then
 add a foreign key. We do so like this:
@@ -273,7 +305,22 @@ its parent -- you will see this in use later on. `on_delete` specifies how we
 want the models to act when their parent is deleted. By using cascade, related
 children will be deleted.
 
-### Admin Console - Ali
+<details>
+    <summary>What kind of relationship is implied by giving the Song table the foreign key from the artist table?</summary>
+    1 -> Many
+    Artist -> Song
+    An artist can have many songs
+</details>
+</br>
+
+<details>
+    <summary>What needs to happen now that we made a change to the model file?</summary>
+   - python manage.py makemigrations
+   - python manage.py migrate
+</details>
+
+
+### Admin Console
 
 Before we get too far, let's also create a superuser for our app. Django has
 authentication (and authorization) right out of the box, so you don't have to
@@ -303,22 +350,98 @@ from .models import Artist
 
 admin.site.register(Artist)
 ```
-
+<details>
+<summary>Now! Bear Witness To the Awesomeness of Django!!!</summary>
 If you now navigate to `localhost:8000/admin`, you get a full admin view where
 you have full CRUD functionality for your model! Create two Artists here.
+</details>
 
-### You Do: Add the Song model (5 minutes) - James
+
+### You Do: Add the Song model (5 minutes)
 
 Add `title`, `album` and `preview_url` fields, then create and run the
 migrations. Finally create three songs using the admin site.
 
-## Django's ORM - Ali
+## Django's ORM (20 minutes)
+<details>
+<summary>Solution: Modify Song Model</summary>
+class Song(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='songs')
+    title = models.CharField(max_length=100, default='no song title')
+    album = models.CharField(max_length=100, default='no album title')
+    preview_url = models.CharField(max_length=200, null=True)
+</details>
+
+<details>
+<summary>Solution: Modify admin.py</summary>
+from django.contrib import admin
+
+from .models import Artist, Song
+
+
+admin.site.register(Artist)</br>
+admin.site.register(Song)
+</details>
+
+<details>
+<summary>Solution: create migration</summary>
+```python
+python manage.py makemigrations
+```
+</details>
+
+<details>
+<summary>Solution: run migration</summary>
+python manage.py migrate
+</details>
+
+
+## REQUIRED TO USE ORM IN SHELL: Django Extension
+
+Django Extensions adds additional debugging functionality to Django. We would **highly** recommend using it to make coding easier! [Link](https://github.com/django-extensions/django-extensions).
+
+To set it up:
+
+```
+$ pip install django-extensions
+```
+
+Add `django_extensions` to your `INSTALLED_APPS` list:
+
+```py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'tunr',
+    'django_extensions'
+]
+```
+
+You can now run `python manage.py shell_plus --ipython` to get to an IPython shell.
+
+
+## Django's ORM
+
+<details>
+<summary>We've used an ODM before, what does it do for us? Now we will use an ORM, how is it different?</summary>
+Object Relational Mapping VS Object Data Mapper
+</details>
 
 Django has an ORM, similar to Mongoose in Express. Let's look at a few queries.
 
 ```python
 # Select all of the artist objects in the database
 Artist.objects.all()
+
+# Select All Objects and Print All Values
+Artist.objects.all().values_list()
+
+# Select All Objects and Print Specific Value
+Artist.objects.all().values_list('nationality')
 
 # Get the artist with the id of 1 (can also do pk here which stands for primary key)
 Artist.objects.get(id=1)
@@ -335,10 +458,10 @@ kanye.save()
 
 # Oops, we misspelled Kanye's name! Let's change it and then commit to the DB
 kanye.name = "Kanye West"
-a.save()
+kanye.save()
 
 # Let's add a song to the artist
-song = Song(title="Ultralight Beam", album="The Life of Pablo", preview_url="test.com", artist=a)
+song = Song(title="Ultralight Beam", album="The Life of Pablo", preview_url="test.com", artist=kanye)
 song.save()
 
 # Delete the song
@@ -390,6 +513,9 @@ shell.
 
 ## Closing/Questions (10 minutes / 2:30)
 
+# Solution For Tunr:
+https://git.generalassemb.ly/dc-wdi-python-django/tunr/tree/models-solution
+
 ## Homework
 
 Complete the Models + Migrations portion of
@@ -405,4 +531,3 @@ Complete the Models + Migrations portion of
 - [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
 - [Django Extensions](https://github.com/django-extensions/django-extensions)
 
-## Sample Quiz Questions
