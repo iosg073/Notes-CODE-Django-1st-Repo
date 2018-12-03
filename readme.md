@@ -1,13 +1,27 @@
+[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+
 # Django Models and Migrations
 
-## Learning Objectives
+This class will get you acquainted with the basics of building an application
+with Django. We'll start by discussing models and migrations and follow up in
+a second class to discuss views and templates. Once we do, we'll have covered
+everything you need to build web applications in Django.
 
-- Create a new Django application with Postgres as the default database
-- Use `manage.py` commands to create, edit, update and seed a database
-- Write models using Django and use them to modify the database tables.
-- Look at Django's ORM.
+## Prerequisites
 
-## Framing
+* Python
+* Another web framework
+
+## Objectives
+
+By the end of this, developers should be able to:
+
+* Create a new Django application with Postgres as the default database
+* Use `manage.py` commands to create, edit, update and seed a database
+* Write models using Django and use them to modify the database tables.
+* Look at Django's ORM.
+
+## Introduction
 
 In this lesson, we will be focusing on the many features that Django provide us
 to set up and maintain our database and models.
@@ -181,7 +195,7 @@ DATABASES = {
 
 <details>
 <summary>What data types is DATABASES?</summary>
-DICTIONARY!!!!!!
+Dictionary!
 </details>
 
 We must also include the app we generated. On the bottom line of the
@@ -202,7 +216,7 @@ INSTALLED_APPS = [
 
 <details>
 <summary>What data types is INSTALLED_APPS?</summary>
-LIST!!!!!!
+List!
 </details>
 
 Now, in the terminal run `python manage.py runserver` and then navigate to
@@ -326,9 +340,10 @@ children will be deleted.
 <details>
     <summary>What needs to happen now that we made a change to the model file?</summary>
 
-- python manage.py makemigrations
-- python manage.py migrate
-  </details>
+* `python manage.py makemigrations`
+* `python manage.py migrate`
+
+</details>
 
 ### Admin Console (10 min / 1:20)
 
@@ -538,12 +553,9 @@ from .models import Artist, Song
 Artist.objects.all()
 ```
 
-
 ## Closing/Questions (10 minutes / 2:30)
 
-# Solution For Tunr:
-
-https://git.generalassemb.ly/dc-wdi-python-django/tunr/tree/models-solution
+## [ Solution For Tunr ](https://git.generalassemb.ly/dc-wdi-python-django/tunr/tree/models-solution)
 
 ## Homework
 
@@ -552,10 +564,16 @@ Complete the Models + Migrations portion of
 
 ## Additional Resources
 
-- [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
-- [Django Docs: Models & Databases](https://docs.djangoproject.com/en/2.0/topics/db/)
-- [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
-- [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
-- [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
-- [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
-- [Django Extensions](https://github.com/django-extensions/django-extensions)
+* [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
+* [Django Docs: Models & Databases](https://docs.djangoproject.com/en/2.0/topics/db/)
+* [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
+* [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
+* [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
+* [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
+* [Django Extensions](https://github.com/django-extensions/django-extensions)
+
+## [License](LICENSE)
+
+1. All content is licensed under a CC­BY­NC­SA 4.0 license.
+1. All software code is licensed under GNU GPLv3. For commercial use or
+    alternative licensing, please contact legal@ga.co.
