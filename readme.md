@@ -3,37 +3,33 @@
 # Django Models and Migrations
 
 This class will get you acquainted with the basics of building an application
-with Django. We'll start by discussing models and migrations and follow up in
-a second class to discuss views and templates. Once we do, we'll have covered
+with Django. We'll start by discussing models and migrations and follow up in a
+second class to discuss views and templates. Once we do, we'll have covered
 everything you need to build web applications in Django.
 
 ## Prerequisites
 
-* Python
-* Another web framework
+- Python
+- Another web framework like Express
 
 ## Objectives
 
 By the end of this, developers should be able to:
 
-* Create a new Django application with Postgres as the default database
-* Use `manage.py` commands to create, edit, update and seed a database
-* Write models using Django and use them to modify the database tables.
-* Look at Django's ORM.
+- Create a new Django application with Postgres as the default database
+- Use `manage.py` commands to create, edit, update and seed a database
+- Write models using Django and use them to modify the database tables.
+- Look at Django's ORM.
 
 ## Introduction
 
 In this lesson, we will be focusing on the many features that Django provide us
 to set up and maintain our database and models.
 
-## We Do: Set Up a Django Application (20 minutes / 0:20)
+## We Do: Set Up a Django Application & Virtual environment (20 minutes / 0:20)
 
 Let's start by making a directory for our project. Put this in your
 `~/wdi/sandbox`:
-
-```bash
-$ mkdir django-starter && cd django-starter
-```
 
 Let's also build a virtual environment. Virtual environments allow us to have
 multiple versions of Python on the same system so we can have different versions
@@ -71,7 +67,9 @@ $ python3 -m virtualenv django-starter # creates the environment
 **EVERY TIME** we want to work on our django project, we must activate it. We do
 that by running the `activate` script in the folder we just created.
 
-We have to do this for every terminal window we open.
+We have to do this for **every terminal window we want to use**. So if you have
+your terminal app open and VSCode's terminal open, you'll have to activate in
+both if you want the python commands to work.
 
 ```bash
 $ source ./django-starter/bin/activate # activates the environment
@@ -84,16 +82,33 @@ Let's also install some dependencies and save them. Django doesn't utilize a
 `Gemfile` (like Ruby) or a `package.json`. Instead, we just use a text file that
 lists all of our dependencies.
 
-The `pip freeze` command outputs the dependencies in our `virtualenv`. We use
-the bash `>` operator to pipe that output into a file.
+```bash
+$ pip3 install django
+$ pip3 install psycopg2-binary
+```
+
+These dependencies will live in the virtual environment folder we just created.
+Similar to `node_modules`, but we don't have to include it in the project
+directory unless we want to.
+
+Now let's create the project directory where our code will actually live.
+
+cd to your `~/wdi/sandbox` folder and then let's go ahead and create our
+project. `django-admin` gives us commands to generate some of our project for
+us.
 
 ```bash
-$ pip install django
-$ pip install psycopg2-binary
-# now cd back to your original project directory
-$ cd ~/wdi/sandbox/django-starter/
+$ django-admin startproject tunr_django
+# this creates a folder called `tunr_django` in the current directory
+$ cd tunr_django
+```
+
+The `pip freeze` command just prints the dependencies in our `virtualenv`. We
+use the bash `>` operator to redirect that output into a file.
+
+```bash
 # write the dependencies to a file called requirements.txt
-$ pip freeze > requirements.txt
+$ pip3 freeze > requirements.txt
 ```
 
 Open up requirements.txt and you'll see something like this:
@@ -109,27 +124,19 @@ connect to PostgreSQL within Django.
 
 If you are downloading and running a Python project, you can usually install its
 dependencies with `pip install -r requirements.txt`. This is essentially
-`npm install`, pip is our python package manager. Requirements.txt is our new
-package.json.
+`npm install`, pip is our python package manager instead of npm.
+`requirements.txt` is our new package.json.
 
-Let's go ahead and create our project. `django-admin` gives us commands to
-generate some of our project for us.
+Open VSCode and look at all the generated files.
 
-```bash
-$ django-admin startproject tunr_django
-$ cd tunr_django
-```
-
-> Note: if django-admin doesn't work, you can replace it with
-> `python manage.py`, assuming `manage.py` is in your current directory.
-
-Do an `ls` and look at the generated files.
-
-Let's go ahead and also create our app.
+Let's also create our app.
 
 ```bash
 $ django-admin startapp tunr
 ```
+
+> Note: if django-admin doesn't work, you can replace it with
+> `python manage.py`, assuming `manage.py` is in your current directory.
 
 Now take a minute to look at the newly generated files.
 
@@ -139,9 +146,9 @@ handle our routes. `tunr` is where we write our models, controllers, and
 templates.
 
 We can have many "apps" inside of a django project. This allows us to
-modularize, giving us flexibility and separation of concerns. In theory, a
-well-structured "app" is interchangeable with other django projects, because it
-should be self-contained.
+modularize, giving us flexibility and separation of concerns. When built
+properly, a well-structured "app" is interchangeable with other django projects,
+because it's self-contained.
 
 ## Database Setup (10 minutes / 0:30)
 
@@ -294,8 +301,8 @@ the `models.py` file. Go ahead and open it up - it should be in
 
 Every time you make changes to your models, run `makemigrations` again.
 
-You should basically never edit the migration files manually. Instead, edit the
-models files and let django figure out what to generate from them.
+You should **NEVER** edit the migration files manually. Instead, edit the
+models files and let django figure out what to generate from them by running `makemigrations` again.
 
 When you've made all the changes you think you need, go ahead and run:
 
@@ -304,6 +311,10 @@ $ python3 manage.py migrate
 ```
 
 This will commit the migration to the database.
+
+If you open up `psql` and connect to the `tunr` database you'll see all the tables have now been created!
+
+This is quite different than mongoDB, where the databases and collections get created automatically as soon as you insert data into them.
 
 <details>
 <summary>What is a migration?</summary>
@@ -335,15 +346,25 @@ children will be deleted.
     An artist can have many songs
 
 </details>
-</br>
 
-<details>
-    <summary>What needs to happen now that we made a change to the model file?</summary>
+What needs to happen now that we made a change to the model file?
 
-* `python manage.py makemigrations`
-* `python manage.py migrate`
+```bash
+python manage.py makemigrations
+```
 
-</details>
+Check out the migrations folder. You should see something like `0002_song.py`.
+
+Python automatically sequences the migration files and tries to give a description for them - in this case, we added a song model, so it gives it the name `song`.
+
+Now run:
+
+```
+python manage.py migrate
+```
+
+And notice that it's all updated!
+
 
 ### Admin Console (10 min / 1:20)
 
@@ -379,16 +400,15 @@ admin.site.register(Artist)
 **Now! Bear Witness To the Awesomeness of Django!!!**
 
 If you now navigate to `localhost:8000/admin`, you can login and get a full
-admin view where you have CRUD functionality for your model! Create two
-Artists here.
+admin view where you have CRUD functionality for your model! Create two Artists
+here.
 
-### You Do: Add the Song model (10 minutes / 1:30)
+### You Do: Finish the Song model (10 minutes / 1:30)
 
-* Add `title`, `album` and `preview_url` fields, then create and run the
-migrations. 
-* Register your Song model like you did with Artist.
-* Finally create three songs using the admin site.
-
+- Add `title`, `album` and `preview_url` fields, then create and run the
+  migrations.
+- Register your Song model like you did with Artist.
+- Finally create three songs using the admin site.
 
 <details>
 <summary>Solution: Modify Song Model</summary>
@@ -400,6 +420,7 @@ class Song(models.Model):
     album = models.CharField(max_length=100, default='no album title')
     preview_url = models.CharField(max_length=200, null=True)
 ```
+
 </details>
 
 <details>
@@ -411,6 +432,7 @@ from .models import Artist, Song
 admin.site.register(Artist)
 admin.site.register(Song)
 ```
+
 </details>
 
 <details>
@@ -419,6 +441,7 @@ admin.site.register(Song)
 ```bash
 python manage.py makemigrations
 ```
+
 </details>
 
 <details>
@@ -427,6 +450,7 @@ python manage.py makemigrations
 ```bash
 python manage.py migrate
 ```
+
 </details>
 
 ## Django Extensions (10 min / 1:40)
@@ -458,8 +482,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-You can now run `python manage.py shell_plus` to get to a python
-shell.
+You can now run `python manage.py shell_plus` to get to a python shell.
 
 **BONUS** install `ipython` because it's a much nicer interface
 
@@ -467,7 +490,7 @@ shell.
 pip install ipython
 ```
 
-Now you can enter it: 
+Now you can enter it:
 
 ```
 python manage.py shell_plus --ipython
@@ -535,9 +558,9 @@ Artist.objects.filter(name__startswith="A")
 Song.objects.exclude(artist_id__gte=3)
 ```
 
-There's a whole bunch of neat stuff we can do with the `shell_plus` extension. 
-Check the docs out: https://django-extensions.readthedocs.io/en/latest/shell_plus.html
-
+There's a whole bunch of neat stuff we can do with the `shell_plus` extension.
+Check the docs out:
+https://django-extensions.readthedocs.io/en/latest/shell_plus.html
 
 Django does have a shell built in by default:
 
@@ -545,7 +568,8 @@ Django does have a shell built in by default:
 $ python manage.py shell
 ```
 
-It can do everything we do in the shell_plus, but doesn't automatically import our models, which is a little annoying.
+It can do everything we do in the shell_plus, but doesn't automatically import
+our models, which is a little annoying.
 
 ```python
 from .models import Artist, Song
@@ -564,16 +588,16 @@ Complete the Models + Migrations portion of
 
 ## Additional Resources
 
-* [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
-* [Django Docs: Models & Databases](https://docs.djangoproject.com/en/2.0/topics/db/)
-* [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
-* [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
-* [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
-* [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
-* [Django Extensions](https://github.com/django-extensions/django-extensions)
+- [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
+- [Django Docs: Models & Databases](https://docs.djangoproject.com/en/2.0/topics/db/)
+- [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
+- [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
+- [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
+- [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
+- [Django Extensions](https://github.com/django-extensions/django-extensions)
 
 ## [License](LICENSE)
 
 1. All content is licensed under a CC­BY­NC­SA 4.0 license.
 1. All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+   alternative licensing, please contact legal@ga.co.
