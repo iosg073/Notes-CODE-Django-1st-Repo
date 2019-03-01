@@ -301,8 +301,9 @@ the `models.py` file. Go ahead and open it up - it should be in
 
 Every time you make changes to your models, run `makemigrations` again.
 
-You should **NEVER** edit the migration files manually. Instead, edit the
-models files and let django figure out what to generate from them by running `makemigrations` again.
+You should **NEVER** edit the migration files manually. Instead, edit the models
+files and let django figure out what to generate from them by running
+`makemigrations` again.
 
 When you've made all the changes you think you need, go ahead and run:
 
@@ -312,9 +313,11 @@ $ python3 manage.py migrate
 
 This will commit the migration to the database.
 
-If you open up `psql` and connect to the `tunr` database you'll see all the tables have now been created!
+If you open up `psql` and connect to the `tunr` database you'll see all the
+tables have now been created!
 
-This is quite different than mongoDB, where the databases and collections get created automatically as soon as you insert data into them.
+This is quite different than mongoDB, where the databases and collections get
+created automatically as soon as you insert data into them.
 
 <details>
 <summary>What is a migration?</summary>
@@ -355,7 +358,9 @@ python manage.py makemigrations
 
 Check out the migrations folder. You should see something like `0002_song.py`.
 
-Python automatically sequences the migration files and tries to give a description for them - in this case, we added a song model, so it gives it the name `song`.
+Python automatically sequences the migration files and tries to give a
+description for them - in this case, we added a song model, so it gives it the
+name `song`.
 
 Now run:
 
@@ -364,7 +369,6 @@ python manage.py migrate
 ```
 
 And notice that it's all updated!
-
 
 ### Admin Console (10 min / 1:20)
 
@@ -462,7 +466,7 @@ Django Extensions adds additional debugging functionality to Django. We would
 To set it up:
 
 ```
-$ pip install django-extensions
+$ pip3 install django-extensions
 ```
 
 Add `django_extensions` to your `INSTALLED_APPS` list:
@@ -487,14 +491,16 @@ You can now run `python manage.py shell_plus` to get to a python shell.
 **BONUS** install `ipython` because it's a much nicer interface
 
 ```
-pip install ipython
+pip3 install ipython
 ```
 
 Now you can enter it:
 
 ```
-python manage.py shell_plus --ipython
+python3 manage.py shell_plus --ipython
 ```
+
+Note all the imports that happen! This allows us to use many common features that django provides, without having to import them ourselves. Super neato.
 
 ## Django's ORM (30 minutes / 2:10)
 
@@ -504,6 +510,8 @@ Object-Relational Mapping VS Object Document Mapping
 </details>
 
 Django has an ORM, similar to Mongoose in Express. Let's look at a few queries.
+
+In the django shell we just installed above, run these commands to explore the models and ORM:
 
 ```python
 # Select all of the artist objects in the database
