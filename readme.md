@@ -113,7 +113,7 @@ pipenv shell
 Let's also create our app:
 
 ```bash
-$ django-admin startapp tunr_django
+$ django-admin startapp tunr
 ```
 
 > Note: if django-admin doesn't work, you can replace it with
