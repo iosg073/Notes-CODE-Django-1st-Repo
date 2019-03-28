@@ -26,110 +26,91 @@ By the end of this, developers should be able to:
 In this lesson, we will be focusing on the many features that Django provide us
 to set up and maintain our database and models.
 
-## We Do: Set Up a Django Application & Virtual environment (20 minutes / 0:20)
+## We Do: Set Up a Django Application & Virtual Environment (20 minutes / 0:20)
 
-Let's start by making a directory for our project. Put this in your
-`~/wdi/sandbox`:
+We'll start by creating a directory for our project: make a `tunr_django`
+directory inside your WDI sandbox (`~/wdi/sandbox`).
 
-Let's also build a virtual environment. Virtual environments allow us to have
-multiple versions of Python on the same system so we can have different versions
-of both Python and the packages we are using on our computers.
+Next, we're going to build a virtual environment. Virtual environments allow us
+to have multiple versions of Python on the same system and manage project
+dependencies.
 
-We can put the virtual environment folder wherever we like - it's just not
-recommended to put it inside of the project itself.
+To manage our dependencies and virtual environments, we're going to use a tool
+called [`pipenv`](https://pipenv.readthedocs.io/) so make sure you have it
+installed. Pipenv works a lot like npm does: it'll install our dependencies and
+track them in a `Pipfile`.
 
-I prefer to have one directory in my home folder that holds all my virtual
-environments. Let's create that now.
+Inside the `tunr_django/` folder you created, run the following command:
 
-```bash
-cd ~
-mkdir .virtualenvs
-cd .virtualenvs
+```sh
+pipenv install django
 ```
 
-Remember that we'll have to navigate back here every time we launch our project.
+This will install Django and create the virtual environment where your
+dependencies for this project will be managed.
 
-Now we'll install the `virtualenv` package which will create a virtual
-environment for this project.
+Next, we're going to install the library for connecting Django to PostgreSQL:
 
-```bash
-$ pip3 install virtualenv
+```sh
+pipenv install psycopg2-binary
 ```
 
-Then we'll create our virtual environment.
+These are the only two dependencies we need at the moment, so open up this
+project in VS Code.
 
-From inside your .virtualenvs folder:
-
-```bash
-$ python3 -m virtualenv django-starter # creates the environment
-```
-
-**EVERY TIME** we want to work on our django project, we must activate it. We do
-that by running the `activate` script in the folder we just created.
-
-We have to do this for **every terminal window we want to use**. So if you have
-your terminal app open and VSCode's terminal open, you'll have to activate in
-both if you want the python commands to work.
-
-```bash
-$ source ./django-starter/bin/activate # activates the environment
-```
-
-Your shell should (hopefully) now look different, showing the name of the
-environment you just activated.
-
-Let's also install some dependencies and save them. Django doesn't utilize a
-`Gemfile` (like Ruby) or a `package.json`. Instead, we just use a text file that
-lists all of our dependencies.
-
-```bash
-$ pip3 install django
-$ pip3 install psycopg2-binary
-```
-
-These dependencies will live in the virtual environment folder we just created.
-Similar to `node_modules`, but we don't have to include it in the project
-directory unless we want to.
-
-Now let's create the project directory where our code will actually live.
-
-cd to your `~/wdi/sandbox` folder and then let's go ahead and create our
-project. `django-admin` gives us commands to generate some of our project for
-us.
-
-```bash
-$ django-admin startproject tunr_django
-# this creates a folder called `tunr_django` in the current directory
-$ cd tunr_django
-```
-
-The `pip freeze` command just prints the dependencies in our `virtualenv`. We
-use the bash `>` operator to redirect that output into a file.
-
-```bash
-# write the dependencies to a file called requirements.txt
-$ pip3 freeze > requirements.txt
-```
-
-Open up requirements.txt and you'll see something like this:
+Let's first look at the `Pipfile` that pipenv created. It should look similar to
+this:
 
 ```
-Django==2.1.3
-psycopg2-binary==2.7.5
-pytz==2018.7
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+psycopg2-binary = "*"
+
+[requires]
+python_version = "3.6"
 ```
 
-Django is, of course, the framework we are using. `psycopg2-binary` allows us to
+Django is, of course, the framework we are using. psycopg2-binary allows us to
 connect to PostgreSQL within Django.
 
-If you are downloading and running a Python project, you can usually install its
-dependencies with `pip install -r requirements.txt`. This is essentially
-`npm install`, pip is our python package manager instead of npm.
-`requirements.txt` is our new package.json.
+All we've done so far is install our dependencies and create our virtual
+environment. Now, we want to start our Django project:
 
-Open VSCode and look at all the generated files.
+```sh
+pipenv run django-admin startproject tunr_django .
+```
 
-Let's also create our app.
+Let's break down this command, because there are a few parts to it:
+
+* `django-admin` is the command line interface for interacting with Django. It
+    has a few commands, of which `startproject` is the one to start a new Django
+    project.
+* `tunr_django` is the name of our project. We add `.` after it so that the
+    project is created in the current directory (the default is to create a new
+    Django project in a new director).
+* `pipenv run` is required because we want to use the version of Django that we
+    just installed using pipenv. If we leave off this part of the command, we'll
+    use the version of the Django CLI that is installed globally (if there is
+    one).
+
+Remembering to type `pipenv run` is a little tedious. We have to do this in
+order to use the version we installed into our virtual environment for this
+project. However, there is another way! If we run `pipenv shell`, then we'll
+"activate" our virtual environment, and every subsequent command will use the
+virtual environment we created:
+
+```sh
+pipenv shell
+```
+
+Let's also create our app:
 
 ```bash
 $ django-admin startapp tunr
@@ -155,7 +136,7 @@ because it's self-contained.
 By default, Django uses sqlite for its database. Let's use PostgreSQL instead
 since it's better suited for production applications.
 
-Login to psql:
+Login to `psql`:
 
 ```bash
 $ psql -d postgres
@@ -280,6 +261,12 @@ class Artist(models.Model):
         return self.name
 ```
 
+This is a brief example of how to write models in Django. The
+[documentation](https://docs.djangoproject.com/en/2.1/topics/db/models/) is
+fantastic and there are a number of [built in field
+types](https://docs.djangoproject.com/en/2.1/ref/models/fields/#model-field-types)
+that you can use for making very detailed models.
+
 ## Migrations (10 min / 0:50)
 
 In the SQL class, we talked about how schema is enforced on the database side
@@ -369,6 +356,9 @@ python manage.py migrate
 ```
 
 And notice that it's all updated!
+
+You can read more about migrations [in the Migrations section of the
+documentation](https://docs.djangoproject.com/en/2.1/topics/migrations/)
 
 ### Admin Console (10 min / 1:20)
 
@@ -466,7 +456,7 @@ Django Extensions adds additional debugging functionality to Django. We would
 To set it up:
 
 ```
-$ pip3 install django-extensions
+$ pipenv install django-extensions
 ```
 
 Add `django_extensions` to your `INSTALLED_APPS` list:
@@ -491,7 +481,7 @@ You can now run `python manage.py shell_plus` to get to a python shell.
 **BONUS** install `ipython` because it's a much nicer interface
 
 ```
-pip3 install ipython
+pipenv install ipython
 ```
 
 Now you can enter it:
