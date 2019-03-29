@@ -211,7 +211,7 @@ Now, in the terminal run `python manage.py runserver` and then navigate to
 `localhost:8000`. You should see a page welcoming you to Django!
 
 `manage.py` contains a lot of management commands for Django. We'll see more
-later, but [here](https://docs.djangoproject.com/en/1.11/ref/django-admin/) is
+later, but [here](https://docs.djangoproject.com/en/2.1/ref/django-admin/) is
 the full documentation if you are interested in what's going on behind the
 scenes.
 
@@ -245,7 +245,7 @@ database): `name`, `photo_url` and `nationality`. `name` and `nationality` are
 character fields which means that we must add an upper limit to how many
 characters are in that database field. The `photo_url` will have unlimited
 length. The full listing of the available fields are
-[here](https://docs.djangoproject.com/en/1.11/ref/models/fields/).
+[here](https://docs.djangoproject.com/en/2.1/ref/models/fields/).
 
 Let's also add the magic method `__str__`. This method defines what an instance
 of the model will show up as by default. It will be really helpful for debugging
@@ -376,7 +376,7 @@ Then fill in the information in the boxes that pop up!
 
 So far in this class, we have used seed files to add initial data to our
 databases. We can also do that in Django
-([see this article](https://docs.djangoproject.com/en/1.11/howto/initial-data/)),
+([see this article](https://docs.djangoproject.com/en/2.1/howto/initial-data/)),
 but let's try something a little bit different instead.
 
 Django has an admin dashboard built in, which gives us full CRUD functionality
@@ -591,7 +591,7 @@ Complete the Models + Migrations portion of
 - [How to Create Django Models](https://www.digitalocean.com/community/tutorials/how-to-create-django-models)
 - [Django Docs: Migrations](https://docs.djangoproject.com/en/2.0/topics/migrations/)
 - [Django Docs: Writing Database Migrations](https://docs.djangoproject.com/en/2.0/howto/writing-migrations/)
-- [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/1.11/howto/initial-data/)
+- [Django Docs: Providing initial data for models](https://docs.djangoproject.com/en/2.1/howto/initial-data/)
 - [Django Extensions](https://github.com/django-extensions/django-extensions)
 
 ## [License](LICENSE)
