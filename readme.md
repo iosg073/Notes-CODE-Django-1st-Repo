@@ -117,7 +117,7 @@ $ django-admin startapp tunr
 ```
 
 > Note: if django-admin doesn't work, you can replace it with
-> `python manage.py`, assuming `manage.py` is in your current directory.
+> `python3 manage.py`, assuming `manage.py` is in your current directory.
 
 Now take a minute to look at the newly generated files.
 
@@ -207,7 +207,7 @@ INSTALLED_APPS = [
 List!
 </details>
 
-Now, in the terminal run `python manage.py runserver` and then navigate to
+Now, in the terminal run `python3 manage.py runserver` and then navigate to
 `localhost:8000`. You should see a page welcoming you to Django!
 
 `manage.py` contains a lot of management commands for Django. We'll see more
@@ -340,7 +340,7 @@ children will be deleted.
 What needs to happen now that we made a change to the model file?
 
 ```bash
-python manage.py makemigrations
+python3 manage.py makemigrations
 ```
 
 Check out the migrations folder. You should see something like `0002_song.py`.
@@ -352,7 +352,7 @@ name `song`.
 Now run:
 
 ```
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 And notice that it's all updated!
@@ -369,7 +369,7 @@ write it yourself or add a plugin.
 In the terminal, run:
 
 ```bash
-$ python manage.py createsuperuser
+$ python3 manage.py createsuperuser
 ```
 
 Then fill in the information in the boxes that pop up!
@@ -433,7 +433,7 @@ admin.site.register(Song)
 <summary>Solution: create migration</summary>
 
 ```bash
-python manage.py makemigrations
+python3 manage.py makemigrations
 ```
 
 </details>
@@ -442,7 +442,7 @@ python manage.py makemigrations
 <summary>Solution: run migration</summary>
 
 ```bash
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 </details>
@@ -476,7 +476,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-You can now run `python manage.py shell_plus` to get to a python shell.
+You can now run `python3 manage.py shell_plus` to get to a python shell.
 
 **BONUS** install `ipython` because it's a much nicer interface
 
@@ -563,7 +563,7 @@ https://django-extensions.readthedocs.io/en/latest/shell_plus.html
 Django does have a shell built in by default:
 
 ```
-$ python manage.py shell
+$ python3 manage.py shell
 ```
 
 It can do everything we do in the shell_plus, but doesn't automatically import
