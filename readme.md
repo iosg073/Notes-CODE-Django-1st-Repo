@@ -29,7 +29,7 @@ to set up and maintain our database and models.
 ## We Do: Set Up a Django Application & Virtual Environment (20 minutes / 0:20)
 
 We'll start by creating a directory for our project: make a `tunr_django`
-directory inside your WDI sandbox (`~/wdi/sandbox`).
+directory inside your sandbox folder.
 
 Next, we're going to build a virtual environment. Virtual environments allow us
 to have multiple versions of Python on the same system and manage project
@@ -48,7 +48,7 @@ brew install pipenv
 Pipenv works a lot like npm does: it'll install our dependencies and track them
 in a `Pipfile`.
 
-Inside the `tunr_django/` folder you created, run the following command:
+`cd` into the `tunr_django/` folder you created, then run the following command:
 
 ```sh
 pipenv install django
@@ -69,6 +69,10 @@ pipenv install psycopg2-binary
 
 These are the only two dependencies we need at the moment, so open up this
 project in VS Code.
+
+```
+code .
+```
 
 Let's first look at the `Pipfile` that pipenv created. It should look similar to
 this:
@@ -98,6 +102,9 @@ environment. Now, we want to start our Django project:
 ```sh
 pipenv run django-admin startproject tunr_django .
 ```
+
+> Make sure you put the `.` on the end! This creates the project in the current
+> directory instead of creating a new subfolder.
 
 Let's break down this command, because there are a few parts to it:
 
@@ -313,7 +320,7 @@ created automatically as soon as you insert data into them.
 
 <details>
 <summary>What is a migration?</summary>
-The process of taking a set of changes/modifications intended for a database and applying those changes
+A set of changes/modifications intended for a database. They can be anything that makes a permanent change - creating columns, creating tables, changing properties, etc.
 </details>
 
 ## Break (10 min / 1:00)
@@ -587,6 +594,8 @@ $ python3 manage.py shell
 
 It can do everything we do in the shell_plus, but doesn't automatically import
 our models, which is a little annoying.
+
+If we wanted to import manually, we'd type this into the shell:
 
 ```python
 from .models import Artist, Song
