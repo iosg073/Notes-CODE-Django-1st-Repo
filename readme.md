@@ -37,8 +37,16 @@ dependencies.
 
 To manage our dependencies and virtual environments, we're going to use a tool
 called [`pipenv`](https://pipenv.readthedocs.io/) so make sure you have it
-installed. Pipenv works a lot like npm does: it'll install our dependencies and
-track them in a `Pipfile`.
+installed with `pipenv --version`.
+
+If you don't have pipenv installed, easy! Homebrew to the rescue:
+
+```sh
+brew install pipenv
+```
+
+Pipenv works a lot like npm does: it'll install our dependencies and track them
+in a `Pipfile`.
 
 Inside the `tunr_django/` folder you created, run the following command:
 
@@ -48,6 +56,10 @@ pipenv install django
 
 This will install Django and create the virtual environment where your
 dependencies for this project will be managed.
+
+This is similar to how node_modules works, the main difference being that
+`pipenv` does all the work for us by putting the dependencies in a separate
+location. This way we don't have to worry about adding things to `.gitignore`.
 
 Next, we're going to install the library for connecting Django to PostgreSQL:
 
@@ -89,16 +101,16 @@ pipenv run django-admin startproject tunr_django .
 
 Let's break down this command, because there are a few parts to it:
 
-* `django-admin` is the command line interface for interacting with Django. It
-    has a few commands, of which `startproject` is the one to start a new Django
-    project.
-* `tunr_django` is the name of our project. We add `.` after it so that the
-    project is created in the current directory (the default is to create a new
-    Django project in a new director).
-* `pipenv run` is required because we want to use the version of Django that we
-    just installed using pipenv. If we leave off this part of the command, we'll
-    use the version of the Django CLI that is installed globally (if there is
-    one).
+- `django-admin` is the command line interface for interacting with Django. It
+  has a few commands, of which `startproject` is the one to start a new Django
+  project.
+- `tunr_django` is the name of our project. We add `.` after it so that the
+  project is created in the current directory (the default is to create a new
+  Django project in a new director).
+- `pipenv run` is required because we want to use the version of Django that we
+  just installed using pipenv. If we leave off this part of the command, we'll
+  use the version of the Django CLI that is installed globally (if there is
+  one).
 
 Remembering to type `pipenv run` is a little tedious. We have to do this in
 order to use the version we installed into our virtual environment for this
@@ -133,8 +145,8 @@ because it's self-contained.
 
 ## Database Setup (10 minutes / 0:30)
 
-By default, Django uses sqlite for its database. Let's use PostgreSQL instead
-since it's better suited for production applications.
+By default, Django uses sqlite for its database. We'll use pSQL instead, because
+it's more robust and better for web applications.
 
 Login to `psql`:
 
@@ -181,11 +193,6 @@ DATABASES = {
 }
 ```
 
-<details>
-<summary>What data types is DATABASES?</summary>
-Dictionary!
-</details>
-
 We must also include the app we generated. On the bottom line of the
 `INSTALLED_APPS` list, add `tunr`. Whenever you create a new app, you have to
 include it in the project.
@@ -201,11 +208,6 @@ INSTALLED_APPS = [
     'tunr'
 ]
 ```
-
-<details>
-<summary>What data types is INSTALLED_APPS?</summary>
-List!
-</details>
 
 Now, in the terminal run `python3 manage.py runserver` and then navigate to
 `localhost:8000`. You should see a page welcoming you to Django!
@@ -263,8 +265,8 @@ class Artist(models.Model):
 
 This is a brief example of how to write models in Django. The
 [documentation](https://docs.djangoproject.com/en/2.1/topics/db/models/) is
-fantastic and there are a number of [built in field
-types](https://docs.djangoproject.com/en/2.1/ref/models/fields/#model-field-types)
+fantastic and there are a number of
+[built in field types](https://docs.djangoproject.com/en/2.1/ref/models/fields/#model-field-types)
 that you can use for making very detailed models.
 
 ## Migrations (10 min / 0:50)
@@ -291,6 +293,9 @@ Every time you make changes to your models, run `makemigrations` again.
 You should **NEVER** edit the migration files manually. Instead, edit the models
 files and let django figure out what to generate from them by running
 `makemigrations` again.
+
+You **should** commit the migration files into git, however. They are crucial
+for other people who want to run their own app.
 
 When you've made all the changes you think you need, go ahead and run:
 
@@ -322,6 +327,11 @@ add a foreign key. We do so like this:
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='songs')
 ```
+
+A foreign key is a field or column in one table that uniquely identifies a row
+of another table. In this case, `Song` will contain a column called `artist`
+that contains the ID of the associated artist. We don't have to define `id` in
+the model, django and psql add them for us.
 
 The `related_name` refers to how the model will be referred to in relation to
 its parent -- you will see this in use later on. `on_delete` specifies how we
@@ -357,8 +367,11 @@ python3 manage.py migrate
 
 And notice that it's all updated!
 
-You can read more about migrations [in the Migrations section of the
-documentation](https://docs.djangoproject.com/en/2.1/topics/migrations/)
+You can read more about migrations
+[in the Migrations section of the documentation](https://docs.djangoproject.com/en/2.1/topics/migrations/)
+
+If you want to see which migrations have been run already, use the command
+`python3 manage.py showmigrations`.
 
 ### Admin Console (10 min / 1:20)
 
@@ -393,9 +406,10 @@ admin.site.register(Artist)
 
 **Now! Bear Witness To the Awesomeness of Django!!!**
 
-If you now navigate to `localhost:8000/admin`, you can login and get a full
-admin view where you have CRUD functionality for your model! Create two Artists
-here.
+Run your server again, then navigate to `localhost:8000/admin`. You can login
+and get a full admin view where you have CRUD functionality for your model!
+
+Create two Artists here using the interface.
 
 ### You Do: Finish the Song model (10 minutes / 1:30)
 
@@ -413,6 +427,9 @@ class Song(models.Model):
     title = models.CharField(max_length=100, default='no song title')
     album = models.CharField(max_length=100, default='no album title')
     preview_url = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.title
 ```
 
 </details>
@@ -490,7 +507,8 @@ Now you can enter it:
 python3 manage.py shell_plus --ipython
 ```
 
-Note all the imports that happen! This allows us to use many common features that django provides, without having to import them ourselves. Super neato.
+Note all the imports that happen! This allows us to use many common features
+that django provides, without having to import them ourselves. Super neato.
 
 ## Django's ORM (30 minutes / 2:10)
 
@@ -501,7 +519,8 @@ Object-Relational Mapping VS Object Document Mapping
 
 Django has an ORM, similar to Mongoose in Express. Let's look at a few queries.
 
-In the django shell we just installed above, run these commands to explore the models and ORM:
+In the django shell we just installed above, run these commands to explore the
+models and ORM:
 
 ```python
 # Select all of the artist objects in the database
