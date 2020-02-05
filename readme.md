@@ -35,36 +35,29 @@ Next, we're going to build a virtual environment. Virtual environments allow us
 to have multiple versions of Python on the same system and manage project
 dependencies.
 
-To manage our dependencies and virtual environments, we're going to use a tool
-called [`pipenv`](https://pipenv.readthedocs.io/) so make sure you have it
-installed with `pipenv --version`.
-
-If you don't have pipenv installed, easy! Homebrew to the rescue:
-
-```sh
-brew install pipenv
-```
-
-Pipenv works a lot like npm does: it'll install our dependencies and track them
-in a `Pipfile`.
-
 `cd` into the `tunr_django/` folder you created, then run the following command:
 
 ```sh
-pipenv install django
+pip3 install virtualenv
+python3 venv .env
+source .env/bin/activate
+```
+
+Then, you'll be in your virtual environment! Remember to activate it each time you work on your project. You'll alsoo make a new one for each django project you create.
+
+```sh
+pip install django
 ```
 
 This will install Django and create the virtual environment where your
 dependencies for this project will be managed.
 
-This is similar to how node_modules works, the main difference being that
-`pipenv` does all the work for us by putting the dependencies in a separate
-location. This way we don't have to worry about adding things to `.gitignore`.
+This way we don't have to worry about adding things to `.gitignore`.
 
 Next, we're going to install the library for connecting Django to PostgreSQL:
 
 ```sh
-pipenv install psycopg2-binary
+pip install psycopg2-binary
 ```
 
 These are the only two dependencies we need at the moment, so open up this
@@ -74,24 +67,6 @@ project in VS Code.
 code .
 ```
 
-Let's first look at the `Pipfile` that pipenv created. It should look similar to
-this:
-
-```
-[[source]]
-name = "pypi"
-url = "https://pypi.org/simple"
-verify_ssl = true
-
-[dev-packages]
-
-[packages]
-django = "*"
-psycopg2-binary = "*"
-
-[requires]
-python_version = "3.6"
-```
 
 Django is, of course, the framework we are using. psycopg2-binary allows us to
 connect to PostgreSQL within Django.
@@ -100,7 +75,7 @@ All we've done so far is install our dependencies and create our virtual
 environment. Now, we want to start our Django project:
 
 ```sh
-pipenv run django-admin startproject tunr_django .
+python run django-admin startproject tunr_django .
 ```
 
 > Make sure you put the `.` on the end! This creates the project in the current
@@ -229,7 +204,7 @@ scenes.
 You can see a list of commands that `manage.py` offers by typing:
 
 ```
-python3 manage.py
+python manage.py
 ```
 
 ## Models (10 min / 0:40)
@@ -288,7 +263,7 @@ In order to migrate this model to the database, we will run two commands. The
 first is:
 
 ```bash
-$ python3 manage.py makemigrations
+$ python manage.py makemigrations
 ```
 
 This will generate a migration file that gets all of its data from the code in
@@ -307,7 +282,7 @@ for other people who want to run their own app.
 When you've made all the changes you think you need, go ahead and run:
 
 ```bash
-$ python3 manage.py migrate
+$ python manage.py migrate
 ```
 
 This will commit the migration to the database.
@@ -389,7 +364,7 @@ write it yourself or add a plugin.
 In the terminal, run:
 
 ```bash
-$ python3 manage.py createsuperuser
+$ python manage.py createsuperuser
 ```
 
 Then fill in the information in the boxes that pop up!
@@ -480,7 +455,7 @@ Django Extensions adds additional debugging functionality to Django. We would
 To set it up:
 
 ```
-$ pipenv install django-extensions
+$ pip install django-extensions
 ```
 
 Add `django_extensions` to your `INSTALLED_APPS` list:
@@ -505,7 +480,7 @@ You can now run `python3 manage.py shell_plus` to get to a python shell.
 **BONUS** install `ipython` because it's a much nicer interface
 
 ```
-pipenv install ipython
+pip install ipython
 ```
 
 Now you can enter it:
@@ -589,7 +564,7 @@ https://django-extensions.readthedocs.io/en/latest/shell_plus.html
 Django does have a shell built in by default:
 
 ```
-$ python3 manage.py shell
+$ python manage.py shell
 ```
 
 It can do everything we do in the shell_plus, but doesn't automatically import
