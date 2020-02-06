@@ -43,6 +43,10 @@ python3 venv .env
 source .env/bin/activate
 ```
 
+If we run `source .env/bin/activate`, then we'll
+"activate" our virtual environment, and every subsequent command will use the
+virtual environment we created.
+
 Then, you'll be in your virtual environment! Remember to activate it each time you work on your project. You'll alsoo make a new one for each django project you create.
 
 ```sh
@@ -89,20 +93,7 @@ Let's break down this command, because there are a few parts to it:
 - `tunr_django` is the name of our project. We add `.` after it so that the
   project is created in the current directory (the default is to create a new
   Django project in a new director).
-- `pipenv run` is required because we want to use the version of Django that we
-  just installed using pipenv. If we leave off this part of the command, we'll
-  use the version of the Django CLI that is installed globally (if there is
-  one).
 
-Remembering to type `pipenv run` is a little tedious. We have to do this in
-order to use the version we installed into our virtual environment for this
-project. However, there is another way! If we run `pipenv shell`, then we'll
-"activate" our virtual environment, and every subsequent command will use the
-virtual environment we created:
-
-```sh
-pipenv shell
-```
 
 Let's also create our app:
 
@@ -332,7 +323,7 @@ children will be deleted.
 What needs to happen now that we made a change to the model file?
 
 ```bash
-python3 manage.py makemigrations
+python manage.py makemigrations
 ```
 
 Check out the migrations folder. You should see something like `0002_song.py`.
@@ -344,7 +335,7 @@ name `song`.
 Now run:
 
 ```
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 And notice that it's all updated!
@@ -353,7 +344,7 @@ You can read more about migrations
 [in the Migrations section of the documentation](https://docs.djangoproject.com/en/2.1/topics/migrations/)
 
 If you want to see which migrations have been run already, use the command
-`python3 manage.py showmigrations`.
+`python manage.py showmigrations`.
 
 ### Admin Console (10 min / 1:20)
 
@@ -432,7 +423,7 @@ admin.site.register(Song)
 <summary>Solution: create migration</summary>
 
 ```bash
-python3 manage.py makemigrations
+python manage.py makemigrations
 ```
 
 </details>
@@ -441,7 +432,7 @@ python3 manage.py makemigrations
 <summary>Solution: run migration</summary>
 
 ```bash
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 </details>
@@ -475,7 +466,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-You can now run `python3 manage.py shell_plus` to get to a python shell.
+You can now run `python manage.py shell_plus` to get to a python shell.
 
 **BONUS** install `ipython` because it's a much nicer interface
 
@@ -486,7 +477,7 @@ pip install ipython
 Now you can enter it:
 
 ```
-python3 manage.py shell_plus --ipython
+python manage.py shell_plus --ipython
 ```
 
 Note all the imports that happen! This allows us to use many common features
