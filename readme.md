@@ -79,7 +79,7 @@ All we've done so far is install our dependencies and create our virtual
 environment. Now, we want to start our Django project:
 
 ```sh
-python run django-admin startproject tunr_django .
+django-admin startproject tunr_django .
 ```
 
 > Make sure you put the `.` on the end! This creates the project in the current
