@@ -50,7 +50,7 @@ virtual environment we created.
 Then, you'll be in your virtual environment! Remember to activate it each time you work on your project. You'll alsoo make a new one for each django project you create.
 
 ```sh
-pip install django
+pip3 install django
 ```
 
 This will install Django and create the virtual environment where your
