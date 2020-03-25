@@ -61,7 +61,7 @@ This way we don't have to worry about adding things to `.gitignore`.
 Next, we're going to install the library for connecting Django to PostgreSQL:
 
 ```sh
-pip install psycopg2-binary
+pip3 install psycopg2-binary
 ```
 
 These are the only two dependencies we need at the moment, so open up this
@@ -195,7 +195,7 @@ scenes.
 You can see a list of commands that `manage.py` offers by typing:
 
 ```
-python manage.py
+python3 manage.py
 ```
 
 ## Models (10 min / 0:40)
@@ -254,7 +254,7 @@ In order to migrate this model to the database, we will run two commands. The
 first is:
 
 ```bash
-$ python manage.py makemigrations
+$ python3 manage.py makemigrations
 ```
 
 This will generate a migration file that gets all of its data from the code in
@@ -273,7 +273,7 @@ for other people who want to run their own app.
 When you've made all the changes you think you need, go ahead and run:
 
 ```bash
-$ python manage.py migrate
+$ python3 manage.py migrate
 ```
 
 This will commit the migration to the database.
@@ -323,7 +323,7 @@ children will be deleted.
 What needs to happen now that we made a change to the model file?
 
 ```bash
-python manage.py makemigrations
+python3 manage.py makemigrations
 ```
 
 Check out the migrations folder. You should see something like `0002_song.py`.
@@ -335,7 +335,7 @@ name `song`.
 Now run:
 
 ```
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 And notice that it's all updated!
@@ -355,7 +355,7 @@ write it yourself or add a plugin.
 In the terminal, run:
 
 ```bash
-$ python manage.py createsuperuser
+$ python3 manage.py createsuperuser
 ```
 
 Then fill in the information in the boxes that pop up!
@@ -423,7 +423,7 @@ admin.site.register(Song)
 <summary>Solution: create migration</summary>
 
 ```bash
-python manage.py makemigrations
+python3 manage.py makemigrations
 ```
 
 </details>
@@ -432,7 +432,7 @@ python manage.py makemigrations
 <summary>Solution: run migration</summary>
 
 ```bash
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 </details>
@@ -446,7 +446,7 @@ Django Extensions adds additional debugging functionality to Django. We would
 To set it up:
 
 ```
-$ pip install django-extensions
+$ pip3 install django-extensions
 ```
 
 Add `django_extensions` to your `INSTALLED_APPS` list:
@@ -471,13 +471,13 @@ You can now run `python manage.py shell_plus` to get to a python shell.
 **BONUS** install `ipython` because it's a much nicer interface
 
 ```
-pip install ipython
+pip3 install ipython
 ```
 
 Now you can enter it:
 
 ```
-python manage.py shell_plus --ipython
+python3 manage.py shell_plus --ipython
 ```
 
 Note all the imports that happen! This allows us to use many common features
@@ -555,7 +555,7 @@ https://django-extensions.readthedocs.io/en/latest/shell_plus.html
 Django does have a shell built in by default:
 
 ```
-$ python manage.py shell
+$ python3 manage.py shell
 ```
 
 It can do everything we do in the shell_plus, but doesn't automatically import
