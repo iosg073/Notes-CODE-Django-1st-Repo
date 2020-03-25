@@ -39,7 +39,7 @@ dependencies.
 
 ```sh
 pip3 install virtualenv
-python3 venv .env
+python3 -m venv .env
 source .env/bin/activate
 ```
 
