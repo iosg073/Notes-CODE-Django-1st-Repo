@@ -515,7 +515,7 @@ Artist.objects.get(name="Kanye West")
 Artist.objects.filter(nationality="USA")
 
 # Store an artist in a variable for later access:
-p = Artist.objects.find(name="Prince")
+p = Artist.objects.get(name="Prince")
 
 # Now you can look up the artist's songs:
 p.songs.all()
