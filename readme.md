@@ -29,39 +29,58 @@ to set up and maintain our database and models.
 ## We Do: Set Up a Django Application & Virtual Environment (20 minutes / 0:20)
 
 We'll start by creating a directory for our project: make a `tunr_django`
-directory inside your sandbox folder.
+directory inside your week10/4-thursday folder.
 
 Next, we're going to build a virtual environment. Virtual environments allow us
 to have multiple versions of Python on the same system and manage project
 dependencies.
 
-`cd` into the `tunr_django/` folder you created, then run the following command:
+Run the following commands:
 
 ```sh
-pip3 install virtualenv
-python3 -m venv .env
-source .env/bin/activate
+py -m venv tunr_django
+cd tunr_django
+Scripts\activate.bat
+py -m pip install Django
 ```
 
-If we run `source .env/bin/activate`, then we'll
-"activate" our virtual environment, and every subsequent command will use the
-virtual environment we created.
+When we run `Scripts\activate.bat`, we "activate" our virtual environment, and every subsequent command will use the
+virtual environment we created. You can think of a virtual environment (henceforth known as a `venv`) like a separate computer sitting on top of your own computer, only it is virtualized so it's not actual physical hardware, but rather tricking the OS into thinking there is separate hardware. It gets a bit more convoluted than that, but needless to say anything you do inside of your `tunr_django` venv is walled off from the rest of your OS.
 
-Then, you'll be in your virtual environment! Remember to activate it each time you work on your project. You'll alsoo make a new one for each django project you create.
+Since we installed Django, what we can do now is use something called `django-admin` (a Django helper utility) to bootstrap a Django project for us (similar to what `create-react-app` does). No time but the present! Let's run a couple of additional commands (with explanations between 'em):
 
 ```sh
-pip3 install django
+django-admin startproject tunr
 ```
 
-This will install Django and create the virtual environment where your
-dependencies for this project will be managed.
+This gives us a new folder, tunr (we could've called it anything we wanted, for simplicities sake let's keep the names similar, though, eh?), with our bootstrapped application ready to go!
 
-This way we don't have to worry about adding things to `.gitignore`.
-
-Next, we're going to install the library for connecting Django to PostgreSQL:
+If we now move into the directory we can use a file that was created (similar to npm) to run our application, it's as simple as that, promise!
 
 ```sh
-pip3 install psycopg2-binary
+cd tunr
+py manage.py runserver
+```
+
+If everything is linked up correctly you should see something similar:
+
+```sh
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+June 17, 2021 - 10:42:28
+Django version 3.2.4, using settings 'tunr_django.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+```
+
+(There might be some slight differences, but the main thing to notice is the `Starting development server at...`, what you can do now is navigate to the url provided (for me it is at `http://127.0.0.1:8000` (the django equivalent to `localhost:3000`)). If everything worked, you'll see a django landing page! Quite a bit more exciting than the React page (just don't tell Leo!).
+
+Let's go ahead and get some more installs going. Use `cmd-c` to stop the server and keep on moving and grooving!
+
+The first thing we're going to install is a library for connecting Django to PostgreSQL:
+
+```sh
+pip install psycopg2-binary
 ```
 
 These are the only two dependencies we need at the moment, so open up this
@@ -75,30 +94,10 @@ code .
 Django is, of course, the framework we are using. psycopg2-binary allows us to
 connect to PostgreSQL within Django.
 
-All we've done so far is install our dependencies and create our virtual
-environment. Now, we want to start our Django project:
-
-```sh
-django-admin startproject tunr_django .
-```
-
-> Make sure you put the `.` on the end! This creates the project in the current
-> directory instead of creating a new subfolder.
-
-Let's break down this command, because there are a few parts to it:
-
-- `django-admin` is the command line interface for interacting with Django. It
-  has a few commands, of which `startproject` is the one to start a new Django
-  project.
-- `tunr_django` is the name of our project. We add `.` after it so that the
-  project is created in the current directory (the default is to create a new
-  Django project in a new director).
-
-
 Let's also create our app:
 
 ```bash
-$ django-admin startapp tunr
+$ django-admin startapp tunr_app
 ```
 
 > Note: if django-admin doesn't work, you can replace it with
@@ -107,8 +106,8 @@ $ django-admin startapp tunr
 Now take a minute to look at the newly generated files.
 
 We've created a django project called `tunr_django`. We've also created an "app"
-inside of it called `tunr`. `tunr_django` is the base django project, where we
-handle our routes. `tunr` is where we write our models, controllers, and
+inside of it called `tunr_app`. `tunr` is the base django project, where we
+handle our routes. `tunr_app` is where we write our models, controllers, and
 templates.
 
 We can have many "apps" inside of a django project. This allows us to
@@ -151,7 +150,7 @@ GRANT ALL PRIVILEGES ON DATABASE tunr TO tunruser;
 $ psql -U postgres -f settings.sql
 ```
 
-Then, in `tunr_django/settings.py` find the `DATABASE` constant dictionary.
+Then, in `tunr/settings.py` find the `DATABASE` constant dictionary (in mine it was around line 76).
 Let's edit it to look like this:
 
 ```python
@@ -178,12 +177,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tunr'
+    'tunr_app'
 ]
 ```
 
 Now, in the terminal run `python3 manage.py runserver` and then navigate to
-`localhost:8000`. You should see a page welcoming you to Django!
+`localhost:8000` (or `127.0.0.1:8000`...they're the same! Kinda a Batman Wayne moment, eh?). You should see a page welcoming you to Django!
 
 `manage.py` contains a lot of management commands for Django. We'll see more
 later, but [here](https://docs.djangoproject.com/en/2.1/ref/django-admin/) is
@@ -195,7 +194,7 @@ scenes.
 You can see a list of commands that `manage.py` offers by typing:
 
 ```
-python3 manage.py
+py manage.py
 ```
 
 ## Models (10 min / 0:40)
@@ -208,7 +207,7 @@ First, lets create a Python class that inherits from the Django built in
 this:
 
 ```python
-# tunr/models.py
+# tunr_app/models.py
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     nationality = models.CharField(max_length=100)
@@ -254,12 +253,12 @@ In order to migrate this model to the database, we will run two commands. The
 first is:
 
 ```bash
-$ python3 manage.py makemigrations
+$ py manage.py makemigrations
 ```
 
 This will generate a migration file that gets all of its data from the code in
 the `models.py` file. Go ahead and open it up - it should be in
-`tunr/migrations/0001_initial.py`.
+`tunr_app/migrations/0001_initial.py`.
 
 Every time you make changes to your models, run `makemigrations` again.
 
@@ -273,16 +272,13 @@ for other people who want to run their own app.
 When you've made all the changes you think you need, go ahead and run:
 
 ```bash
-$ python3 manage.py migrate
+$ py manage.py migrate
 ```
 
 This will commit the migration to the database.
 
 If you open up `psql` and connect to the `tunr` database you'll see all the
 tables have now been created!
-
-This is quite different than mongoDB, where the databases and collections get
-created automatically as soon as you insert data into them.
 
 <details>
 <summary>What is a migration?</summary>
@@ -323,7 +319,7 @@ children will be deleted.
 What needs to happen now that we made a change to the model file?
 
 ```bash
-python3 manage.py makemigrations
+py manage.py makemigrations
 ```
 
 Check out the migrations folder. You should see something like `0002_song.py`.
@@ -335,7 +331,7 @@ name `song`.
 Now run:
 
 ```
-python3 manage.py migrate
+py manage.py migrate
 ```
 
 And notice that it's all updated!
@@ -344,7 +340,7 @@ You can read more about migrations
 [in the Migrations section of the documentation](https://docs.djangoproject.com/en/2.1/topics/migrations/)
 
 If you want to see which migrations have been run already, use the command
-`python manage.py showmigrations`.
+`py manage.py showmigrations`.
 
 ### Admin Console (10 min / 1:20)
 
@@ -355,7 +351,7 @@ write it yourself or add a plugin.
 In the terminal, run:
 
 ```bash
-$ python3 manage.py createsuperuser
+$ py manage.py createsuperuser
 ```
 
 Then fill in the information in the boxes that pop up!
@@ -368,7 +364,7 @@ but let's try something a little bit different instead.
 Django has an admin dashboard built in, which gives us full CRUD functionality
 straight out of the box.
 
-Let's set it up! In `tunr/admin.py`, add the following code:
+Let's set it up! In `tunr_app/admin.py`, add the following code:
 
 ```python
 from django.contrib import admin
@@ -380,7 +376,7 @@ admin.site.register(Artist)
 **Now! Bear Witness To the Awesomeness of Django!!!**
 
 Run your server again, then navigate to `localhost:8000/admin`. You can login
-and get a full admin view where you have CRUD functionality for your model!
+and get a full admin view where you have CRUD functionality for your model! (Don't forget to start your server with `py manage.py startserver` if you stopped it previously!)
 
 Create two Artists here using the interface.
 
@@ -423,7 +419,7 @@ admin.site.register(Song)
 <summary>Solution: create migration</summary>
 
 ```bash
-python3 manage.py makemigrations
+py manage.py makemigrations
 ```
 
 </details>
@@ -432,7 +428,7 @@ python3 manage.py makemigrations
 <summary>Solution: run migration</summary>
 
 ```bash
-python3 manage.py migrate
+py manage.py migrate
 ```
 
 </details>
@@ -446,7 +442,7 @@ Django Extensions adds additional debugging functionality to Django. We would
 To set it up:
 
 ```
-$ pip3 install django-extensions
+$ pip install django-extensions
 ```
 
 Add `django_extensions` to your `INSTALLED_APPS` list:
@@ -466,7 +462,9 @@ INSTALLED_APPS = [
 ]
 ```
 
-You can now run `python manage.py shell_plus` to get to a python shell.
+You can now run `py manage.py shell_plus` to get to a python shell.
+
+If you are getting an error you might need to create a `requirements.txt` file (very similar to our `package.json` files from express / react). To do so, run this command: `pip freeze > requirements.txt`. This will create a file with all of our dependencies listed.
 
 **BONUS** install `ipython` because it's a much nicer interface
 
