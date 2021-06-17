@@ -571,11 +571,6 @@ Artist.objects.all()
 
 ## [ Solution For Tunr ](https://github.com/ga-wdi-exercises/tunr_updated)
 
-## Homework
-
-Complete the Models + Migrations portion of
-[Scribble](https://git.generalassemb.ly/dc-wdi-python-django/scribble).
-
 ## Additional Resources
 
 - [Django Docs: Models](https://docs.djangoproject.com/en/2.0/topics/db/models/)
