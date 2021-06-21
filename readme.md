@@ -181,7 +181,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Now, in the terminal run `python3 manage.py runserver` and then navigate to
+Now, in the terminal run `py manage.py runserver` and then navigate to
 `localhost:8000` (or `127.0.0.1:8000`...they're the same! Kinda a Batman Wayne moment, eh?). You should see a page welcoming you to Django!
 
 `manage.py` contains a lot of management commands for Django. We'll see more
