@@ -123,7 +123,7 @@ it's more robust and better for web applications.
 Login to `psql`:
 
 ```bash
-$ psql -d postgres
+$ psql -U postgres
 ```
 
 Create a database:
