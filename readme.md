@@ -376,7 +376,7 @@ admin.site.register(Artist)
 **Now! Bear Witness To the Awesomeness of Django!!!**
 
 Run your server again, then navigate to `localhost:8000/admin`. You can login
-and get a full admin view where you have CRUD functionality for your model! (Don't forget to start your server with `py manage.py startserver` if you stopped it previously!)
+and get a full admin view where you have CRUD functionality for your model! (Don't forget to start your server with `py manage.py runserver` if you stopped it previously!)
 
 Create two Artists here using the interface.
 
